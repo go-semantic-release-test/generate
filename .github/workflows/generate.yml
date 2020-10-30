@@ -13,3 +13,5 @@ jobs:
       - name: golangci-lint
         run: |
           go run cmd/main.go
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
