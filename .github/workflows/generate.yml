@@ -1,0 +1,15 @@
+name: CI
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  generate:
+    name: Generate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: golangci-lint
+        run: |
+          go run cmd/main.go
