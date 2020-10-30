@@ -64,6 +64,10 @@ func (g Generator) Commit(change scenarios.ChangeType, msg string) (*plumbing.Ha
 		Author: CreateAuthor(),
 	})
 
+	if err != nil {
+		return nil, fmt.Errorf("failed to commit: %w", err)
+	}
+
 	return &hash, nil
 }
 
