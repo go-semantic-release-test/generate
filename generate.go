@@ -147,7 +147,7 @@ func Generate() error {
 
 	_, err = repo.CreateRemote(&config.RemoteConfig{
 		Name: "gitlab",
-		URLs: []string{"git@gitlab.com:cliedeman/go-semantic-release-test.git"},
+		URLs: []string{"git@gitlab.com:go-semantic-release/test/test.git"},
 	})
 
 	if err != nil {
