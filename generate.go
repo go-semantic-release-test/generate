@@ -48,19 +48,14 @@ func (g Generator) Commit(change scenarios.ChangeType, msg string) (*plumbing.Ha
 	switch change {
 	case scenarios.Feat:
 		prefix = "feat: "
-		break
 	case scenarios.Fix:
 		prefix = "fix: "
-		break
 	case scenarios.Breaking:
 		prefix = "feat: BREAKING "
-		break
 	case scenarios.Chore:
 		prefix = "chore: "
-		break
 	case scenarios.Other:
 		// No Prefix
-		break
 	default:
 		return nil, fmt.Errorf("invalid change type: %s", change)
 	}
