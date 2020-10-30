@@ -1,0 +1,38 @@
+name: CI
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: golangci-lint
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s
+          ./bin/golangci-lint run -v
+  build:
+    name: Build and Run
+    runs-on: ${{ matrix.os }}
+    needs: lint
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    steps:
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.15
+      - uses: actions/checkout@v2
+      - run: go build ./cmd/semantic-release/
+      - run: go test -v ./...
+      - run: ./semantic-release --dry || exit 0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
